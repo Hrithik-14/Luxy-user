@@ -69,29 +69,29 @@ export default function CartPage() {
             <h2
               className={cn([
                 integralCF.className,
-                "font-bold text-[32px] md:text-[40px] text-black uppercase mb-5 md:mb-6",
+                "font-bold text-[32px] md:text-[40px] text-brand uppercase mb-5 md:mb-6",
               ])}
             >
               your cart
             </h2>
             <div className="flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5 items-start">
-              <div className="w-full p-3.5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-black/10">
+              <div className="w-full p-3.5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-brand/10">
                 {cart?.items.map((product, idx, arr) => (
                   <React.Fragment key={idx}>
                     <ProductCard data={product} />
                     {arr.length - 1 !== idx && (
-                      <hr className="border-t-black/10" />
+                      <hr className="border-t-brand/10" />
                     )}
                   </React.Fragment>
                 ))}
               </div>
-              <div className="w-full lg:max-w-[505px] p-5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-black/10">
-                <h6 className="text-xl md:text-2xl font-bold text-black">
+              <div className="w-full lg:max-w-[505px] p-5 md:px-6 flex-col space-y-4 md:space-y-6 rounded-[20px] border border-brand/10">
+                <h6 className="text-xl md:text-2xl font-bold text-brand">
                   Order Summary
                 </h6>
                 <div className="flex flex-col space-y-5">
                   <div className="flex items-center justify-between">
-                    <span className="md:text-xl text-black/60">Subtotal</span>
+                    <span className="md:text-xl text-brand/60">Subtotal</span>
                     <span className="md:text-xl font-bold">₹{totalPrice}</span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -112,9 +112,9 @@ export default function CartPage() {
                     </span>
                     <span className="md:text-xl font-bold">Free</span> */}
                   </div>
-                  <hr className="border-t-black/10" />
+                  <hr className="border-t-brand/10" />
                   <div className="flex items-center justify-between">
-                    <span className="md:text-xl text-black">Total</span>
+                    <span className="md:text-xl text-brand">Total</span>
                     <span className="text-xl md:text-2xl font-bold">
                       ₹{Math.round(adjustedTotalPrice)}
                     </span>
@@ -123,7 +123,7 @@ export default function CartPage() {
                 <Button
                   type="button"
                   onClick={handleCheckout}
-                  className="text-sm md:text-base font-medium bg-black rounded-full w-full py-4 h-[54px] md:h-[60px] group"
+                  className="text-sm md:text-base font-medium bg-brand rounded-full w-full py-4 h-[54px] md:h-[60px] group hover:bg-brand-dark"
                 >
                   Go to Checkout{" "}
                   <FaArrowRight className="text-xl ml-2 group-hover:translate-x-1 transition-all" />

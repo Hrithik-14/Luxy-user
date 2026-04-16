@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         integralCF: ["var(--font-integralCF)"],
-        satoshi: ["var(--font-satoshi)"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
       screens: {
         xs: "375px",
@@ -33,6 +33,11 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        brand: {
+          DEFAULT: "#aa6b38",
+          dark: "#8a5228",
+          light: "#f5ede4",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

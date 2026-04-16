@@ -16,7 +16,7 @@ const AddToCartBtn = ({ data, attributes = [] }: Props) => {
   return (
     <button
       type="button"
-      className="bg-black w-full ml-3 sm:ml-5 rounded-full h-11 md:h-[52px] text-sm sm:text-base text-white hover:bg-black/80 transition-all"
+      className="bg-brand w-full ml-3 sm:ml-5 rounded-full h-11 md:h-[52px] text-sm sm:text-base text-white hover:bg-brand-dark transition-all"
       onClick={() =>
         dispatch(
           addToCart({

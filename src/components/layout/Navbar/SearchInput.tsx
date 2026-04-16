@@ -101,7 +101,7 @@ const SearchInput = () => {
   return (
     <div className="relative w-full md:mr-3 lg:mr-10">
       <form onSubmit={handleSearch}>
-        <InputGroup className="flex bg-[#F0F0F0]">
+        <InputGroup className="flex bg-[#f5ede4]">
           <InputGroup.Text>
             <Image priority src="/icons/search.svg" height={20} width={20} alt="search" className="min-w-5 min-h-5" />
           </InputGroup.Text>
@@ -110,7 +110,7 @@ const SearchInput = () => {
             type="search"
             name="search"
             placeholder="Search for products..."
-            className="bg-transparent placeholder:text-black/40"
+            className="bg-transparent placeholder:text-brand/40"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
@@ -121,47 +121,47 @@ const SearchInput = () => {
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white border border-black/10 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-1 bg-white border border-brand/10 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
         >
           {isLoading ? (
             <div className="p-4 space-y-3">
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="flex items-center gap-3 animate-pulse">
-                  <div className="w-12 h-12 bg-gray-200 rounded flex-shrink-0" />
+                  <div className="w-12 h-12 bg-brand/10 rounded flex-shrink-0" />
                   <div className="flex-1 space-y-2">
-                    <div className="h-3 bg-gray-200 rounded w-3/4" />
-                    <div className="h-3 bg-gray-200 rounded w-1/3" />
+                    <div className="h-3 bg-brand/10 rounded w-3/4" />
+                    <div className="h-3 bg-brand/10 rounded w-1/3" />
                   </div>
                 </div>
               ))}
             </div>
           ) : suggestions.length > 0 ? (
-            <div className="divide-y divide-black/5">
+            <div className="divide-y divide-brand/5">
               {suggestions.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => handleSuggestionClick(p.id, p.title)}
-                  className="w-full flex items-center gap-3 p-3 hover:bg-[#F0F0F0] transition-colors text-left"
+                  className="w-full flex items-center gap-3 p-3 hover:bg-[#f5ede4] transition-colors text-left"
                 >
-                  <div className="relative w-12 h-12 flex-shrink-0 rounded bg-[#F0F0F0] overflow-hidden">
+                  <div className="relative w-12 h-12 flex-shrink-0 rounded bg-[#f5ede4] overflow-hidden">
                     <Image src={p.srcUrl} alt={p.title} fill className="object-cover" unoptimized />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-black truncate">{p.title}</p>
-                    <p className="text-xs text-black/60">{p.category}</p>
-                    <p className="text-sm font-semibold text-black mt-0.5">₹{p.price}</p>
+                    <p className="text-sm font-medium text-brand truncate">{p.title}</p>
+                    <p className="text-xs text-brand/60">{p.category}</p>
+                    <p className="text-sm font-semibold text-brand mt-0.5">₹{p.price}</p>
                   </div>
                 </button>
               ))}
               <button
                 onClick={() => { router.push(`/shop?search=${encodeURIComponent(query)}`); setShowSuggestions(false); }}
-                className="w-full p-3 text-center text-sm font-medium text-black hover:bg-[#F0F0F0] transition-colors"
+                className="w-full p-3 text-center text-sm font-medium text-brand hover:bg-[#f5ede4] transition-colors"
               >
                 View all results for "{query}"
               </button>
             </div>
           ) : (
-            <div className="p-4 text-center text-black/60 text-sm">No products found</div>
+            <div className="p-4 text-center text-brand/60 text-sm">No products found</div>
           )}
         </div>
       )}

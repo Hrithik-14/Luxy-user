@@ -150,7 +150,7 @@ export default function HeroBanner() {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
         .banner-root {
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Montserrat', sans-serif;
           position: relative;
           width: 100%;
           height: 92vh;
@@ -242,13 +242,13 @@ export default function HeroBanner() {
         /* tag */
         .slide-tag {
           display: inline-block;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Montserrat', sans-serif;
           font-size: 0.68rem;
           font-weight: 500;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: #111;
-          border: 1px solid #111;
+          color: #aa6b38;
+          border: 1px solid #aa6b38;
           padding: 5px 14px;
           margin-bottom: 22px;
           opacity: 0;
@@ -263,7 +263,7 @@ export default function HeroBanner() {
           font-weight: 300;
           line-height: 1.05;
           letter-spacing: -0.01em;
-          color: #0a0a0a;
+          color: #aa6b38;
           white-space: pre-line;
           margin: 0 0 20px;
           opacity: 0;
@@ -276,7 +276,7 @@ export default function HeroBanner() {
           font-size: 0.95rem;
           font-weight: 300;
           line-height: 1.65;
-          color: #444;
+          color: #7a5030;
           max-width: 400px;
           margin-bottom: 36px;
           opacity: 0;
@@ -297,9 +297,9 @@ export default function HeroBanner() {
         .banner-content.center .btn-row { justify-content: center; }
 
         .btn-primary {
-          background: #0a0a0a;
+          background: #aa6b38;
           color: #fff;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Montserrat', sans-serif;
           font-size: 0.8rem;
           font-weight: 500;
           letter-spacing: 0.1em;
@@ -309,33 +309,24 @@ export default function HeroBanner() {
           cursor: pointer;
           transition: background 0.25s, transform 0.2s;
         }
-        .btn-primary:hover { background: #333; transform: translateY(-2px); }
+        .btn-primary:hover { background: #8a5228; transform: translateY(-2px); }
 
         .btn-ghost {
           background: transparent;
-          color: #0a0a0a;
-          font-family: 'DM Sans', sans-serif;
+          color: #aa6b38;
+          font-family: 'Montserrat', sans-serif;
           font-size: 0.8rem;
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
           padding: 14px 34px;
-          border: 1px solid #0a0a0a;
+          border: 1px solid #aa6b38;
           cursor: pointer;
           transition: background 0.25s, color 0.25s, transform 0.2s;
         }
-        .btn-ghost:hover { background: #0a0a0a; color: #fff; transform: translateY(-2px); }
+        .btn-ghost:hover { background: #aa6b38; color: #fff; transform: translateY(-2px); }
 
         /* ── progress bar ── */
-        // .progress-bar {
-        //   position: absolute;
-        //   bottom: 0;
-        //   left: 0;
-        //   height: 2px;
-        //   background: #0a0a0a;
-        //   z-index: 10;
-        //   animation: progress 5s linear;
-        // }
         .progress-bar {
   display: none;
 }
@@ -351,7 +342,7 @@ export default function HeroBanner() {
           transform: translateY(-50%);
           z-index: 8;
           background: rgba(255,255,255,0.88);
-          border: 1px solid #ddd;
+          border: 1px solid #e8d5c4;
           width: 48px;
           height: 48px;
           display: flex;
@@ -362,12 +353,12 @@ export default function HeroBanner() {
           backdrop-filter: blur(6px);
         }
         .arrow-btn:hover {
-          background: #0a0a0a;
-          border-color: #0a0a0a;
+          background: #aa6b38;
+          border-color: #aa6b38;
           transform: translateY(-50%) scale(1.08);
         }
         .arrow-btn:hover svg { stroke: #fff; }
-        .arrow-btn svg { stroke: #0a0a0a; transition: stroke 0.2s; }
+        .arrow-btn svg { stroke: #aa6b38; transition: stroke 0.2s; }
         .arrow-left  { left: 28px; }
         .arrow-right { right: 28px; }
 
@@ -386,14 +377,14 @@ export default function HeroBanner() {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          border: 1px solid #0a0a0a;
+          border: 1px solid #aa6b38;
           background: transparent;
           cursor: pointer;
           padding: 0;
           transition: background 0.25s, transform 0.2s;
         }
         .dot.active {
-          background: #0a0a0a;
+          background: #aa6b38;
           transform: scale(1.3);
         }
 
@@ -405,9 +396,9 @@ export default function HeroBanner() {
           z-index: 8;
           font-size: 0.72rem;
           letter-spacing: 0.12em;
-          color: #888;
+          color: #c49070;
         }
-        .slide-counter span { color: #0a0a0a; font-weight: 500; }
+        .slide-counter span { color: #aa6b38; font-weight: 500; }
 
         @keyframes fadeUp {
           to { opacity: 1; transform: translateY(0); }

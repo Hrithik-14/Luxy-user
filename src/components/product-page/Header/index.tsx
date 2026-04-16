@@ -6,7 +6,6 @@ import { Product, ProductVariant, SizeOption } from "@/types/product.types";
 import { integralCF } from "@/styles/fonts";
 import { cn } from "@/lib/utils";
 import AddToCardSection from "./AddToCardSection";
-import { IoMdCheckmark } from "react-icons/io";
 
 const Header = ({ data }: { data: Product }) => {
   const variants = data.variants ?? [];
@@ -60,58 +59,54 @@ const Header = ({ data }: { data: Product }) => {
 
         {/* Price */}
         <div className="flex items-center space-x-2.5 sm:space-x-3 mb-5">
-          <span className="font-bold text-black text-2xl sm:text-[32px]">
+          <span className="font-bold text-brand text-2xl sm:text-[32px]">
             ₹{displayPrice}
           </span>
         </div>
 
         {/* Description */}
-        <p className="text-sm sm:text-base text-black/60 mb-5">
+        <p className="text-sm sm:text-base text-brand/60 mb-5">
           {data.description ||
             "This product is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style."}
         </p>
 
-        <hr className="h-[1px] border-t-black/10 mb-5" />
+        <hr className="h-[1px] border-t-brand/10 mb-5" />
 
-        {/* Color / Variant selection */}
+        {/* Flavour / Variant selection */}
         {variants.length > 0 && (
           <>
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-3">
-                Select Color
+              <span className="text-sm sm:text-base text-brand/60 mb-3">
+                Select Flavour
               </span>
               <div className="flex items-center flex-wrap gap-3">
                 {variants.map((v) => (
                   <button
                     key={v._id}
                     type="button"
-                    title={v.color}
                     onClick={() => handleVariantSelect(v)}
                     className={cn(
-                      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-all",
+                      "bg-[#f5ede4] px-6 py-3 text-sm rounded-full font-medium transition-all",
                       selectedVariant?._id === v._id
-                        ? "border-black scale-110"
-                        : "border-transparent"
+                        ? "bg-brand text-white"
+                        : "text-brand hover:bg-brand/10"
                     )}
-                    style={{ backgroundColor: v.color || "#ccc" }}
                   >
-                    {selectedVariant?._id === v._id && (
-                      <IoMdCheckmark className="text-white text-base drop-shadow" />
-                    )}
+                    {v.color}
                   </button>
                 ))}
               </div>
             </div>
-            <hr className="h-[1px] border-t-black/10 mb-5" />
+            <hr className="h-[1px] border-t-brand/10 mb-5" />
           </>
         )}
 
         {/* Size selection */}
         {sizes.length > 0 && (
-          <>
+          <>  
             <div className="flex flex-col mb-5">
-              <span className="text-sm sm:text-base text-black/60 mb-4">
-                Choose Size
+              <span className="text-sm sm:text-base text-brand/60 mb-4">
+                Choose Quantity
               </span>
               <div className="flex items-center flex-wrap gap-3">
                 {sizes.map((s) => (
@@ -120,10 +115,10 @@ const Header = ({ data }: { data: Product }) => {
                     type="button"
                     onClick={() => setSelectedSize(s)}
                     className={cn(
-                      "bg-[#F0F0F0] px-6 py-3 text-sm rounded-full font-medium transition-all",
+                      "bg-[#f5ede4] px-6 py-3 text-sm rounded-full font-medium transition-all",
                       selectedSize?._id === s._id
-                        ? "bg-black text-white"
-                        : "text-black hover:bg-black/10"
+                        ? "bg-brand text-white"
+                        : "text-brand hover:bg-brand/10"
                     )}
                   >
                     {s.size.toUpperCase()}
@@ -131,7 +126,7 @@ const Header = ({ data }: { data: Product }) => {
                 ))}
               </div>
             </div>
-            <hr className="hidden md:block h-[1px] border-t-black/10 mb-5" />
+            <hr className="hidden md:block h-[1px] border-t-brand/10 mb-5" />
           </>
         )}
 

@@ -18,6 +18,7 @@ interface ApiProduct {
   _id: string;
   name: string;
   category?: { name: string; _id?: string };
+  subcategory?: { name: string; _id?: string };
   variants?: Array<{
     images?: string[];
     price?: number;
@@ -35,10 +36,10 @@ const ITEMS_PER_PAGE = 12;
 // Skeleton card shown while loading
 const SkeletonCard = () => (
   <div className="flex flex-col items-start animate-pulse">
-    <div className="bg-gray-200 rounded-[13px] lg:rounded-[20px] w-full aspect-square mb-2.5" />
-    <div className="h-4 bg-gray-200 rounded w-3/4 mb-1.5" />
-    <div className="h-3 bg-gray-200 rounded w-1/2 mb-2" />
-    <div className="h-5 bg-gray-200 rounded w-1/3" />
+    <div className="bg-brand/10 rounded-[13px] lg:rounded-[20px] w-full aspect-square mb-2.5" />
+    <div className="h-4 bg-brand/10 rounded w-3/4 mb-1.5" />
+    <div className="h-3 bg-brand/10 rounded w-1/2 mb-2" />
+    <div className="h-5 bg-brand/10 rounded w-1/3" />
   </div>
 );
 
@@ -69,6 +70,7 @@ const ShopProductsList = () => {
 
     const applyFilters = (all: Product[]) => {
       const categories = searchParams.get("categories");
+      const subcategories = searchParams.get("subcategories");
       const minPrice = searchParams.get("minPrice");
       const maxPrice = searchParams.get("maxPrice");
       const search = searchParams.get("search");
@@ -81,6 +83,12 @@ const ShopProductsList = () => {
           filtered = filtered.filter(p => selected.includes((p.category || "").toLowerCase().trim()));
         }
       }
+      if (subcategories) {
+        const selected = subcategories.split(",").map(s => s.trim().toLowerCase()).filter(Boolean);
+        if (selected.length > 0) {
+          filtered = filtered.filter(p => selected.includes((p.subcategory || "").toLowerCase().trim()));
+        }
+      }
       if (minPrice || maxPrice) {
         const min = minPrice ? Number(minPrice) : 0;
         const max = maxPrice ? Number(maxPrice) : Infinity;
@@ -90,7 +98,8 @@ const ShopProductsList = () => {
         const q = search.toLowerCase();
         filtered = filtered.filter(p =>
           p.title.toLowerCase().includes(q) ||
-          (p.category || "").toLowerCase().includes(q)
+          (p.category || "").toLowerCase().includes(q) ||
+          (p.subcategory || "").toLowerCase().includes(q)
         );
       }
 
@@ -133,6 +142,7 @@ const ShopProductsList = () => {
               id: p._id,
               title: p.name,
               category: p.category?.name || "General",
+              subcategory: p.subcategory?.name || "",
               srcUrl: v?.images?.[0] || "/images/pic1.png",
               gallery: v?.images || [],
               price: v?.price || 0,
@@ -167,18 +177,20 @@ const ShopProductsList = () => {
 
   const search = searchParams.get("search");
   const categories = searchParams.get("categories");
+  const subcategories = searchParams.get("subcategories");
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
 
   return (
     <div className="flex flex-col w-full space-y-5">
       {/* Active filter labels */}
-      {(search || categories || minPrice || maxPrice) && (
-        <div className="text-sm text-black/60 space-y-1">
-          {search && <p>Results for: <span className="font-semibold text-black">"{search}"</span></p>}
-          {categories && <p>Category: <span className="font-semibold text-black">{categories.split(",").join(", ")}</span></p>}
+      {(search || categories || subcategories || minPrice || maxPrice) && (
+        <div className="text-sm text-brand/60 space-y-1">
+          {search && <p>Results for: <span className="font-semibold text-brand">"{search}"</span></p>}
+          {categories && <p>Category: <span className="font-semibold text-brand">{categories.split(",").join(", ")}</span></p>}
+          {subcategories && <p>Flavour: <span className="font-semibold text-brand">{subcategories.split(",").join(", ")}</span></p>}
           {(minPrice || maxPrice) && (
-            <p>Price: <span className="font-semibold text-black">₹{minPrice || "0"} – ₹{maxPrice || "∞"}</span></p>
+            <p>Price: <span className="font-semibold text-brand">₹{minPrice || "0"} – ₹{maxPrice || "∞"}</span></p>
           )}
         </div>
       )}
@@ -196,7 +208,7 @@ const ShopProductsList = () => {
         </div>
       ) : (
         <div className="w-full text-center py-20">
-          <p className="text-black/60">
+          <p className="text-brand/60">
             {search ? `No products found for "${search}".` : "Loading..."}
           </p>
         </div>
@@ -205,12 +217,12 @@ const ShopProductsList = () => {
       {/* Pagination */}
       {!loading && totalPages > 1 && (
         <>
-          <hr className="border-t-black/10" />
+          <hr className="border-t-brand/10" />
           <Pagination className="justify-between">
             <PaginationPrevious
               href="#"
               onClick={(e) => { e.preventDefault(); currentPage > 1 && setCurrentPage(p => p - 1); }}
-              className={currentPage === 1 ? "opacity-50 cursor-not-allowed" : "border border-black/10"}
+              className={currentPage === 1 ? "opacity-50 cursor-not-allowed" : "border border-brand/10"}
             />
             <PaginationContent>
               {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map((page) => (
@@ -219,7 +231,7 @@ const ShopProductsList = () => {
                     href="#"
                     onClick={(e) => { e.preventDefault(); setCurrentPage(page); }}
                     isActive={currentPage === page}
-                    className="text-black/50 font-medium text-sm"
+                    className="text-brand/50 font-medium text-sm"
                   >
                     {page}
                   </PaginationLink>
@@ -227,14 +239,14 @@ const ShopProductsList = () => {
               ))}
               {totalPages > 5 && (
                 <PaginationItem>
-                  <PaginationEllipsis className="text-black/50 font-medium text-sm" />
+                  <PaginationEllipsis className="text-brand/50 font-medium text-sm" />
                 </PaginationItem>
               )}
             </PaginationContent>
             <PaginationNext
               href="#"
               onClick={(e) => { e.preventDefault(); currentPage < totalPages && setCurrentPage(p => p + 1); }}
-              className={currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "border border-black/10"}
+              className={currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "border border-brand/10"}
             />
           </Pagination>
         </>

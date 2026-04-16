@@ -69,7 +69,7 @@ const LinksSection = () => {
               key={link.id}
               className={cn([
                 link.id !== 41 && link.id !== 43 && "capitalize",
-                "text-black/60 text-sm md:text-base mb-4 w-fit",
+                "text-brand/60 text-sm md:text-base mb-4 w-fit",
               ])}
             >
               {link.label}

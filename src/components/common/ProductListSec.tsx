@@ -1,4 +1,3 @@
-import React from "react";
 import * as motion from "framer-motion/client";
 import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
@@ -15,9 +14,10 @@ type ProductListSecProps = {
   title: string;
   data: Product[];
   viewAllLink?: string;
+  isCircle?: boolean;
 };
 
-const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
+const ProductListSec = ({ title, data, viewAllLink, isCircle }: ProductListSecProps) => {
   return (
     <section className="max-w-frame mx-auto text-center">
       <motion.h2
@@ -50,7 +50,7 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
                 key={product.id}
                 className="w-full max-w-[198px] sm:max-w-[295px] pl-0"
               >
-                <ProductCard data={product} />
+                <ProductCard data={product} isCircle={isCircle} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -59,7 +59,7 @@ const ProductListSec = ({ title, data, viewAllLink }: ProductListSecProps) => {
           <div className="w-full px-4 sm:px-0 text-center">
             <Link
               href={viewAllLink}
-              className="w-full inline-block sm:w-[218px] px-[54px] py-4 border rounded-full hover:bg-black hover:text-white text-black transition-all font-medium text-sm sm:text-base border-black/10"
+              className="w-full inline-block sm:w-[218px] px-[54px] py-4 border rounded-full hover:bg-brand hover:text-white text-brand transition-all font-medium text-sm sm:text-base border-brand/20"
             >
               View All
             </Link>
