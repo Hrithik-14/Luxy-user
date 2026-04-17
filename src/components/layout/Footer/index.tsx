@@ -1,18 +1,33 @@
-﻿import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
 import { SocialNetworks } from "./footer.types";
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter,FaSnapchat, FaYoutube, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 import LinksSection from "./LinksSection";
 import LayoutSpacing from "./LayoutSpacing";
 
 const socialsData: SocialNetworks[] = [
-  { id: 1, icon: <FaTwitter />, url: "https://twitter.com" },
+  { id: 1, icon: <FaSnapchat />, url: "https://www.snapchat.com/add/luxygalleria" },
   { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
   {
     id: 3,
     icon: <FaInstagram />,
-    url: "https://www.instagram.com/auravault06?igsh=NzBudmE1YTlsemNo",
+    url: "https://www.instagram.com/luxygalleria?igsh=aDhpM2Zoc3FvejQw",
+  },
+  {
+    id: 4,
+    icon: <FaInstagram />,
+    url: "https://www.instagram.com/luxysnackstation?igsh=MXAyNWQwZmZtaHoydQ==",
+  },
+  {
+    id: 5,
+    icon: <FaFacebook />,
+    url: "https://www.facebook.com/share/1BLZJWnKyP/?mibextid=wwXIfr",
+  },
+  {
+    id: 6,
+    icon: <FaYoutube />,
+    url: "https://youtube.com/@luxysnackstation?si=oqzX6swsa1f5hYBz",
   },
 ];
 
@@ -35,8 +50,8 @@ const Footer = () => {
                 LUXY GALLERIA
               </h1>
               <p className="text-brand/60 text-sm mb-9">
-                We have clothes that suits your style and which you are proud to
-                wear. From women to men.
+              it’s an experience that brings joy and comfort.
+               Every bite tells a story of culture, flavor, and love.
               </p>
               <div className="flex items-center">
                 {socialsData.map((social) => (

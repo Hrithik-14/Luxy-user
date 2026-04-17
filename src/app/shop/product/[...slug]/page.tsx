@@ -26,6 +26,7 @@ async function getProduct(id: string): Promise<Product | null> {
             _id: s._id || "",
             size: s.size || "",
             stock: s.stock ?? 0,
+            price: s.price ?? 0,
           }))
         : [],
       price: v.price || 0,

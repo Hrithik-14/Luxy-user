@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PhotoSection from "./PhotoSection";
 import { Product, ProductVariant, SizeOption } from "@/types/product.types";
 import { integralCF } from "@/styles/fonts";
@@ -16,7 +16,12 @@ const Header = ({ data }: { data: Product }) => {
     defaultVariant?.sizesArray?.[0] || null
   );
 
-  const displayPrice = selectedVariant?.price ?? data.price;
+  // Price: size-specific price > variant price > product price
+  const displayPrice = useMemo(() => {
+    if (selectedSize?.price && selectedSize.price > 0) return selectedSize.price;
+    if (selectedVariant?.price && selectedVariant.price > 0) return selectedVariant.price;
+    return data.price;
+  }, [selectedSize, selectedVariant, data.price]);
   const displayImages = selectedVariant?.images?.length
     ? selectedVariant.images
     : data.gallery ?? [];
@@ -25,7 +30,8 @@ const Header = ({ data }: { data: Product }) => {
 
   const handleVariantSelect = (v: ProductVariant) => {
     setSelectedVariant(v);
-    setSelectedSize(v.sizesArray?.[0] || null);
+    const firstSize = v.sizesArray?.[0] || null;
+    setSelectedSize(firstSize);
   };
 
   const displayProduct: Product = {
@@ -62,6 +68,11 @@ const Header = ({ data }: { data: Product }) => {
           <span className="font-bold text-brand text-2xl sm:text-[32px]">
             ₹{displayPrice}
           </span>
+          {selectedSize?.price && selectedSize.price > 0 && (
+            <span className="text-sm text-brand/50">
+              ({selectedSize.size})
+            </span>
+          )}
         </div>
 
         {/* Description */}
@@ -109,21 +120,32 @@ const Header = ({ data }: { data: Product }) => {
                 Choose Quantity
               </span>
               <div className="flex items-center flex-wrap gap-3">
-                {sizes.map((s) => (
-                  <button
-                    key={s._id}
-                    type="button"
-                    onClick={() => setSelectedSize(s)}
-                    className={cn(
-                      "bg-[#f5ede4] px-6 py-3 text-sm rounded-full font-medium transition-all",
-                      selectedSize?._id === s._id
-                        ? "bg-brand text-white"
-                        : "text-brand hover:bg-brand/10"
-                    )}
-                  >
-                    {s.size.toUpperCase()}
-                  </button>
-                ))}
+                {sizes.map((s) => {
+                  const sizePrice = s.price && s.price > 0 ? s.price : null;
+                  return (
+                    <button
+                      key={s._id}
+                      type="button"
+                      onClick={() => setSelectedSize(s)}
+                      className={cn(
+                        "bg-[#f5ede4] px-5 py-2.5 text-sm rounded-full font-medium transition-all flex flex-col items-center",
+                        selectedSize?._id === s._id
+                          ? "bg-brand text-white"
+                          : "text-brand hover:bg-brand/10"
+                      )}
+                    >
+                      <span>{s.size.toUpperCase()}</span>
+                      {sizePrice && (
+                        <span className={cn(
+                          "text-xs font-semibold",
+                          selectedSize?._id === s._id ? "text-white/80" : "text-brand/70"
+                        )}>
+                          ₹{sizePrice}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <hr className="hidden md:block h-[1px] border-t-brand/10 mb-5" />

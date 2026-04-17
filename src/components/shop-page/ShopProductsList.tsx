@@ -23,13 +23,24 @@ interface ApiProduct {
     images?: string[];
     price?: number;
     isDefault?: boolean;
+    sizes?: Array<{ size: string; price?: number; stock?: number }>;
   }>;
+}
+
+// Get the lowest size price, falling back to variant price
+function getDisplayPrice(v?: ApiProduct["variants"][0]): number {
+  if (!v) return 0;
+  const sizePrices = (v.sizes || [])
+    .map(s => s.price || 0)
+    .filter(p => p > 0);
+  if (sizePrices.length > 0) return Math.min(...sizePrices);
+  return v.price || 0;
 }
 
 // Module-level cache — persists across navigations within the same session
 let productCache: Product[] = [];
 let cacheTimestamp = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 0; // always fresh — prices depend on sizes
 
 const ITEMS_PER_PAGE = 12;
 
@@ -145,7 +156,7 @@ const ShopProductsList = () => {
               subcategory: p.subcategory?.name || "",
               srcUrl: v?.images?.[0] || "/images/pic1.png",
               gallery: v?.images || [],
-              price: v?.price || 0,
+              price: getDisplayPrice(v),
               discount: { amount: 0, percentage: 0 },
               rating: 4,
             };

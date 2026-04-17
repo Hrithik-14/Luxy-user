@@ -43,7 +43,7 @@ export default function CategoryCarousel() {
         transition={{ duration: 0.6 }}
         className={cn([integralCF.className, "text-[32px] md:text-5xl mb-8 md:mb-14 capitalize"])}
       >
-        Explore for More
+        All Categories
       </motion.h2>
 
       <motion.div
@@ -107,7 +107,7 @@ export default function CategoryCarousel() {
           href="/shop"
           className="inline-block px-[54px] py-4 border rounded-full hover:bg-brand hover:text-white text-brand transition-all font-medium text-sm sm:text-base border-brand/20"
         >
-          View All
+          View All Products
         </Link>
       </motion.div>
     </section>
