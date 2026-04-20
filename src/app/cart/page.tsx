@@ -21,45 +21,93 @@ export default function CartPage() {
     (state: RootState) => state.carts
   );
 
-  const handleCheckout = () => {
-    try {
-      // Check if cart has items
-      if (!cart || !cart.items || cart.items.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
+  // const handleCheckout = () => {
+  //   try {
+  //     // Check if cart has items
+  //     if (!cart || !cart.items || cart.items.length === 0) {
+  //       alert("Your cart is empty!");
+  //       return;
+  //     }
 
-      // Build message with all order details
-      let messageText = `${WHATSAPP_MESSAGE}\n\n`;
+  //     // Build message with all order details
+  //     let messageText = `${WHATSAPP_MESSAGE}\n\n`;
       
-      // Add order items details
-      messageText += `📦 *Order Details:*\n`;
-      messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+  //     // Add order items details
+  //     messageText += `📦 *Order Details:*\n`;
+  //     messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
       
-      cart.items.forEach((item, index) => {
-        messageText += `\n${index + 1}. *${item.name}*\n`;
-        messageText += `   • Quantity: ${item.quantity}\n`;
-        messageText += `   • Color: ${item.attributes[0] || "N/A"}\n`;
-        messageText += `   • Size: ${item.attributes[1] || "N/A"}\n`;
-        messageText += `   • Price: ₹${Math.round(item.price * item.quantity)}\n`;
-        // messageText += `   • Image: ${item.srcUrl}\n`;
-      });
+  //     cart.items.forEach((item, index) => {
+  //       messageText += `\n${index + 1}. *${item.name}*\n`;
+  //       messageText += `   • Quantity: ${item.quantity}\n`;
+  //       messageText += `   • Color: ${item.attributes[0] || "N/A"}\n`;
+  //       messageText += `   • Size: ${item.attributes[1] || "N/A"}\n`;
+  //       messageText += `   • Price: ₹${Math.round(item.price * item.quantity)}\n`;
+  //       // messageText += `   • Image: ${item.srcUrl}\n`;
+  //     });
       
-      messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
-      messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
-      messageText += `📊 *Total Items:* ${cart.items.length}`;
+  //     messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+  //     messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+  //     messageText += `📊 *Total Items:* ${cart.items.length}`;
       
-      const message = encodeURIComponent(messageText);
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${message}`;
+  //     const message = encodeURIComponent(messageText);
+  //     const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${message}`;
       
-      // Use window.location.href for more reliable navigation
-      window.location.href = whatsappUrl;
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert("Error processing checkout. Please try again.");
+  //     // Use window.location.href for more reliable navigation
+  //     window.location.href = whatsappUrl;
+  //   } catch (error) {
+  //     console.error("Checkout error:", error);
+  //     alert("Error processing checkout. Please try again.");
+  //   }
+  // };
+const handleCheckout = () => {
+  try {
+    if (!cart || !cart.items || cart.items.length === 0) {
+      alert("Your cart is empty!");
+      return;
     }
-  };
 
+    let messageText = `${WHATSAPP_MESSAGE}\n\n`;
+
+    messageText += `📦 *Order Details:*\n`;
+    messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+    let totalWeight = 0;
+    let totalQuantity = 0;
+
+    cart.items.forEach((item, index) => {
+      const itemTotalPrice = Math.round(item.price * item.quantity);
+
+      // ✅ Extract weight from size (like "1000g")
+      let size = item.attributes?.[1] || "0g";
+      let numericWeight = parseInt(size.replace("g", "")) || 0;
+
+      const itemWeight = numericWeight * item.quantity;
+
+      totalWeight += itemWeight;
+      totalQuantity += item.quantity;
+
+      messageText += `\n${index + 1}. *${item.name}*\n`;
+      messageText += `   • Quantity: ${item.quantity}\n`;
+      messageText += `   • Color: ${item.attributes?.[0] || "N/A"}\n`;
+      messageText += `   • Size: ${size}\n`;
+      messageText += `   • Price: ₹${itemTotalPrice}\n`;
+      messageText += `   • Weight: ${itemWeight}g\n`;
+    });
+
+    messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+    messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+    messageText += `📊 *Total Items:* ${totalQuantity}\n`;
+    messageText += `⚖️ *Total Weight:* ${totalWeight}g`;
+
+    const message = encodeURIComponent(messageText);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${message}`;
+
+    window.location.href = whatsappUrl;
+  } catch (error) {
+    console.error("Checkout error:", error);
+    alert("Error processing checkout. Please try again.");
+  }
+};
   return (
     <main className="pb-20">
       <div className="max-w-frame mx-auto px-4 xl:px-0">

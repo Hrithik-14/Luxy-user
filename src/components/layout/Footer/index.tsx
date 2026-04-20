@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 import { integralCF } from "@/styles/fonts";
 import { SocialNetworks } from "./footer.types";
 import { FaFacebookF, FaInstagram, FaTwitter,FaSnapchat, FaYoutube, FaFacebook } from "react-icons/fa";
@@ -8,24 +8,24 @@ import LayoutSpacing from "./LayoutSpacing";
 
 const socialsData: SocialNetworks[] = [
   { id: 1, icon: <FaSnapchat />, url: "https://www.snapchat.com/add/luxygalleria" },
-  { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
+  // { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
   {
-    id: 3,
+    id: 2,
     icon: <FaInstagram />,
     url: "https://www.instagram.com/luxygalleria?igsh=aDhpM2Zoc3FvejQw",
   },
   {
-    id: 4,
+    id: 3,
     icon: <FaInstagram />,
     url: "https://www.instagram.com/luxysnackstation?igsh=MXAyNWQwZmZtaHoydQ==",
   },
   {
-    id: 5,
+    id: 4,
     icon: <FaFacebook />,
     url: "https://www.facebook.com/share/1BLZJWnKyP/?mibextid=wwXIfr",
   },
   {
-    id: 6,
+    id: 5,
     icon: <FaYoutube />,
     url: "https://youtube.com/@luxysnackstation?si=oqzX6swsa1f5hYBz",
   },
