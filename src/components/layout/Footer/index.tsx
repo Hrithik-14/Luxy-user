@@ -1,34 +1,15 @@
-﻿import { cn } from "@/lib/utils";
-import { integralCF } from "@/styles/fonts";
-import { SocialNetworks } from "./footer.types";
-import { FaFacebookF, FaInstagram, FaTwitter,FaSnapchat, FaYoutube, FaFacebook } from "react-icons/fa";
-import Link from "next/link";
+﻿import { SocialNetworks } from "./footer.types";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube, FaSnapchatGhost } from "react-icons/fa";
+import Image from "next/image";
 import LinksSection from "./LinksSection";
 import LayoutSpacing from "./LayoutSpacing";
 
 const socialsData: SocialNetworks[] = [
-  { id: 1, icon: <FaSnapchat />, url: "https://www.snapchat.com/add/luxygalleria" },
-  // { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
-  {
-    id: 2,
-    icon: <FaInstagram />,
-    url: "https://www.instagram.com/luxygalleria?igsh=aDhpM2Zoc3FvejQw",
-  },
-  {
-    id: 3,
-    icon: <FaInstagram />,
-    url: "https://www.instagram.com/luxysnackstation?igsh=MXAyNWQwZmZtaHoydQ==",
-  },
-  {
-    id: 4,
-    icon: <FaFacebook />,
-    url: "https://www.facebook.com/share/1BLZJWnKyP/?mibextid=wwXIfr",
-  },
-  {
-    id: 5,
-    icon: <FaYoutube />,
-    url: "https://youtube.com/@luxysnackstation?si=oqzX6swsa1f5hYBz",
-  },
+  { id: 1, icon: <FaTwitter />, url: "https://twitter.com" },
+  { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
+  { id: 3, icon: <FaInstagram />, url: "https://www.instagram.com/auravault06?igsh=NzBudmE1YTlsemNo" },
+  { id: 4, icon: <FaSnapchatGhost />, url: "https://snapchat.com" },
+  { id: 5, icon: <FaYoutube />, url: "https://youtube.com" },
 ];
 
 const Footer = () => {
@@ -41,27 +22,30 @@ const Footer = () => {
         <div className="max-w-frame mx-auto">
           <nav className="lg:grid lg:grid-cols-12 mb-8">
             <div className="flex flex-col lg:col-span-3 lg:max-w-[248px]">
-              <h1
-                className={cn([
-                  integralCF.className,
-                  "text-[28px] lg:text-[32px] mb-6",
-                ])}
-              >
-                LUXY GALLERIA
-              </h1>
+              <div className="mb-6">
+                <Image
+                  src="/images/company.jpeg"
+                  alt="Company Logo"
+                  width={192}
+                  height={72}
+                  className="object-contain"
+                  priority
+                />
+              </div>
               <p className="text-brand/60 text-sm mb-9">
-              it’s an experience that brings joy and comfort.
-               Every bite tells a story of culture, flavor, and love.
+                It&apos;s an experience that brings joy and comfort. Every bite tells a story of culture, flavor, and love.
               </p>
-              <div className="flex items-center">
+              <div className="flex items-center flex-wrap gap-2">
                 {socialsData.map((social) => (
-                  <Link
+                  <a
                     href={social.url}
                     key={social.id}
-                    className="bg-white hover:bg-brand hover:text-white transition-all mr-3 w-7 h-7 rounded-full border border-brand/20 flex items-center justify-center p-1.5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white hover:bg-brand hover:text-white transition-all w-7 h-7 rounded-full border border-brand/20 flex items-center justify-center p-1.5"
                   >
                     {social.icon}
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
