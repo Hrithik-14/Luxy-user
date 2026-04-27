@@ -14,21 +14,23 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+type ApiVariant = {
+  images?: string[];
+  price?: number;
+  isDefault?: boolean;
+  sizes?: Array<{ size: string; price?: number; stock?: number }>;
+};
+
 interface ApiProduct {
   _id: string;
   name: string;
   category?: { name: string; _id?: string };
   subcategory?: { name: string; _id?: string };
-  variants?: Array<{
-    images?: string[];
-    price?: number;
-    isDefault?: boolean;
-    sizes?: Array<{ size: string; price?: number; stock?: number }>;
-  }>;
+  variants?: ApiVariant[];
 }
 
 // Get the lowest size price, falling back to variant price
-function getDisplayPrice(v?: ApiProduct["variants"][0]): number {
+function getDisplayPrice(v?: ApiVariant): number {
   if (!v) return 0;
   const sizePrices = (v.sizes || [])
     .map(s => s.price || 0)
