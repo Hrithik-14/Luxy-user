@@ -5,11 +5,12 @@ import LinksSection from "./LinksSection";
 import LayoutSpacing from "./LayoutSpacing";
 
 const socialsData: SocialNetworks[] = [
-  { id: 1, icon: <FaTwitter />, url: "https://twitter.com" },
-  { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
-  { id: 3, icon: <FaInstagram />, url: "https://www.instagram.com/auravault06?igsh=NzBudmE1YTlsemNo" },
-  { id: 4, icon: <FaSnapchatGhost />, url: "https://snapchat.com" },
-  { id: 5, icon: <FaYoutube />, url: "https://youtube.com" },
+
+  { id: 1, icon: <FaFacebookF />, url: "https://www.facebook.com/share/1BLZJWnKyP/?mibextid=wwXIfr" },
+  { id: 2, icon: <FaInstagram />, url: "https://www.instagram.com/luxygalleria?igsh=aDhpM2Zoc3FvejQw" },
+  { id: 3, icon: <FaInstagram />, url: "https://www.instagram.com/luxysnackstation?igsh=MXAyNWQwZmZtaHoydQ==" },
+  { id: 4, icon: <FaSnapchatGhost />, url: "https://www.snapchat.com/add/luxygalleria" },
+  { id: 5, icon: <FaYoutube />, url: "https://youtube.com/@luxysnackstation?si=oqzX6swsa1f5hYBz" },
 ];
 
 const Footer = () => {
@@ -29,11 +30,12 @@ const Footer = () => {
                   width={192}
                   height={72}
                   className="object-contain"
+                  style={{ width: "auto", height: "72px" }}
                   priority
                 />
               </div>
               <p className="text-brand/60 text-sm mb-9">
-                It&apos;s an experience that brings joy and comfort. Every bite tells a story of culture, flavor, and love.
+                More than a snack store, a destination for worldwide treats and everyday cravings.
               </p>
               <div className="flex items-center flex-wrap gap-2">
                 {socialsData.map((social) => (

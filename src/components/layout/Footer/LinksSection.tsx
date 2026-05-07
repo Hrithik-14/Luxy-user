@@ -11,18 +11,14 @@ const footerLinksData: FooterLinks[] = [
       {
         id: 11,
         label: "about",
-        url: "#",
+        url: "/about",
       },
       {
         id: 12,
         label: "features",
-        url: "#",
+        url: "/features",
       },
-      {
-        id: 13,
-        label: "works",
-        url: "#",
-      },
+     
     ],
   },
 
@@ -32,23 +28,23 @@ const footerLinksData: FooterLinks[] = [
     children: [
       {
         id: 31,
-        label: "account",
-        url: "#",
+        label: "Whatsapp Support",
+        url: "/account",
       },
       {
         id: 32,
         label: "manage deliveries",
-        url: "#",
+        url: "/manage-deliveries",
       },
       {
         id: 33,
         label: "orders",
-        url: "#",
+        url: "/orders",
       },
       {
         id: 34,
         label: "payments",
-        url: "#",
+        url: "/payments",
       },
     ],
   },

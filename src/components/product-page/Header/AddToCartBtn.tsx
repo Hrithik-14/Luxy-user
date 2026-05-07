@@ -8,16 +8,18 @@ import React from "react";
 type Props = {
   data: Product & { quantity: number };
   attributes?: string[];
+  weight?: number;
 };
 
-const AddToCartBtn = ({ data, attributes = [] }: Props) => {
+const AddToCartBtn = ({ data, attributes = [], weight }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
     <button
       type="button"
       className="bg-brand w-full ml-3 sm:ml-5 rounded-full h-11 md:h-[52px] text-sm sm:text-base text-white hover:bg-brand-dark transition-all"
-      onClick={() =>
+      onClick={() => {
+        console.log("🛒 AddToCartBtn weight:", weight);
         dispatch(
           addToCart({
             id: data.id as number,
@@ -27,9 +29,10 @@ const AddToCartBtn = ({ data, attributes = [] }: Props) => {
             attributes,
             discount: data.discount,
             quantity: data.quantity,
+            weight,
           })
-        )
-      }
+        );
+      }}
     >
       Add to Cart
     </button>

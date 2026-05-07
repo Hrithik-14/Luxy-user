@@ -94,8 +94,8 @@ export default function CategoryCarousel() {
                             src={cat.image}
                             alt={cat.name}
                             fill
+                            sizes="160px"
                             className="object-cover group-hover:scale-110 transition-all duration-500"
-                            unoptimized
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-3xl sm:text-4xl">

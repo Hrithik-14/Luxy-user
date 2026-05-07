@@ -1,4 +1,4 @@
-import BreadcrumbProduct from "@/components/product-page/BreadcrumbProduct";
+﻿import BreadcrumbProduct from "@/components/product-page/BreadcrumbProduct";
 import Header from "@/components/product-page/Header";
 import { Product, ProductVariant } from "@/types/product.types";
 import { notFound } from "next/navigation";
@@ -25,7 +25,7 @@ async function getProduct(id: string): Promise<Product | null> {
         ? v.sizes.map((s: any) => ({
             _id: s._id || "",
             size: s.size || "",
-            stock: s.stock ?? 0,
+            weight: s.weight ?? s.stock ?? 0,
             price: s.price ?? 0,
           }))
         : [],

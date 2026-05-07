@@ -5,9 +5,12 @@ import React, { Suspense } from "react";
 import CartBtn from "./CartBtn";
 import SearchInput from "../SearchInput";
 import Image from "next/image";
+import CouponBar from "@/components/Coupons";
 
 const TopNavbar = () => {
   return (
+    <>
+    <CouponBar/>
     <nav className="sticky top-0 bg-white z-20">
       <div className="flex relative max-w-frame mx-auto items-center justify-between md:justify-start py-3 md:py-6 px-4 xl:px-0">
         <div className="flex items-center">
@@ -29,6 +32,10 @@ const TopNavbar = () => {
         <Suspense fallback={<div className="w-full md:mr-3 lg:mr-10 h-10 bg-[#f5ede4] rounded-full animate-pulse" />}>
           <SearchInput />
         </Suspense>
+        {/* <div className="hidden md:flex items-center gap-6 mx-4 shrink-0">
+          <Link href="/shop" className="text-sm font-medium text-brand/70 hover:text-brand transition-colors">Shop</Link>
+          <Link href="/about" className="text-sm font-medium text-brand/70 hover:text-brand transition-colors">About</Link>
+        </div> */}
         <div className="flex items-center">
           <Suspense fallback={<div className="w-6 h-6 mr-[14px]" />}>
             <CartBtn />
@@ -36,6 +43,7 @@ const TopNavbar = () => {
         </div>
       </div>
     </nav>
+    </>
   );
 };
 

@@ -152,7 +152,7 @@ const Header = ({ data }: { data: Product }) => {
           </>
         )}
 
-        <AddToCardSection data={displayProduct} attributes={cartAttributes} />
+        <AddToCardSection data={displayProduct} attributes={cartAttributes} weight={selectedSize?.weight} />
       </div>
     </div>
   );

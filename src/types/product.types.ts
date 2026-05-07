@@ -6,7 +6,8 @@ export type Discount = {
 export type SizeOption = {
   _id: string;
   size: string;
-  stock: number;
+  stock?: number;
+  weight?: number;
   price?: number;
 };
 

@@ -30,6 +30,7 @@ export type CartItem = {
   attributes: string[];
   discount: Discount;
   quantity: number;
+  weight?: number; // weight in grams for the selected size
 };
 
 export type Cart = {

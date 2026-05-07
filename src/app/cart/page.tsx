@@ -59,6 +59,56 @@ export default function CartPage() {
   //     alert("Error processing checkout. Please try again.");
   //   }
   // };
+// const handleCheckout = () => {
+//   try {
+//     if (!cart || !cart.items || cart.items.length === 0) {
+//       alert("Your cart is empty!");
+//       return;
+//     }
+
+//     let messageText = `📦 *Order Details:*\n`;
+//     messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+//     let totalWeight = 0;
+//     let totalQuantity = 0;
+
+//     cart.items.forEach((item, index) => {
+//       const itemTotalPrice = Math.round(item.price * item.quantity);
+//       const itemWeight = (item.weight && item.weight > 0)
+//         ? item.weight * item.quantity
+//         : (() => {
+//             // fallback: parse weight from size label e.g. "100g", "250g", "1kg"
+//             const sizeLabel = item.attributes?.[1] || "";
+//             const kgMatch = sizeLabel.match(/(\d+(?:\.\d+)?)\s*kg/i);
+//             const gMatch = sizeLabel.match(/(\d+)\s*g/i);
+//             if (kgMatch) return parseFloat(kgMatch[1]) * 1000 * item.quantity;
+//             if (gMatch) return parseInt(gMatch[1]) * item.quantity;
+//             return 0;
+//           })();
+
+//       if (itemWeight > 0) totalWeight += itemWeight;
+//       totalQuantity += item.quantity;
+
+//       messageText += `\n${index + 1}. *${item.name}*\n`;
+//       messageText += `   • Qty: ${item.quantity}\n`;
+//       if (item.attributes?.[0]) messageText += `   • Flavour: ${item.attributes[0]}\n`;
+//       if (item.attributes?.[1]) messageText += `   • Size: ${item.attributes[1]}\n`;
+//       messageText += `   • Price: ₹${itemTotalPrice}\n`;
+//       if (itemWeight > 0) messageText += `   • Weight: ${itemWeight}g\n`;
+//     });
+
+//     messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+//     messageText += `\n💰 *Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+//     messageText += `📊 *Items:* ${totalQuantity}\n`;
+//     if (totalWeight > 0) messageText += `⚖️ *Total Weight:* ${totalWeight}g\n`;
+
+//     const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(messageText)}`;
+//     window.location.href = whatsappUrl;
+//   } catch (error) {
+//     console.error("Checkout error:", error);
+//     alert("Error processing checkout. Please try again.");
+//   }
+// };
 const handleCheckout = () => {
   try {
     if (!cart || !cart.items || cart.items.length === 0) {
@@ -66,9 +116,13 @@ const handleCheckout = () => {
       return;
     }
 
-    let messageText = `${WHATSAPP_MESSAGE}\n\n`;
+    // Debug logs
+    console.log("🛒 cart.items:", cart.items);
+    cart.items.forEach(item => {
+      console.log(`📦 ${item.name} — weight: ${item.weight}, qty: ${item.quantity}`);
+    });
 
-    messageText += `📦 *Order Details:*\n`;
+    let messageText = `📦 *Order Details:*\n`;
     messageText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
 
     let totalWeight = 0;
@@ -76,32 +130,25 @@ const handleCheckout = () => {
 
     cart.items.forEach((item, index) => {
       const itemTotalPrice = Math.round(item.price * item.quantity);
-
-      // ✅ Extract weight from size (like "1000g")
-      let size = item.attributes?.[1] || "0g";
-      let numericWeight = parseInt(size.replace("g", "")) || 0;
-
-      const itemWeight = numericWeight * item.quantity;
+      const itemWeight = (item.weight && item.weight > 0) ? item.weight * item.quantity : 0;
 
       totalWeight += itemWeight;
       totalQuantity += item.quantity;
 
       messageText += `\n${index + 1}. *${item.name}*\n`;
-      messageText += `   • Quantity: ${item.quantity}\n`;
-      messageText += `   • Color: ${item.attributes?.[0] || "N/A"}\n`;
-      messageText += `   • Size: ${size}\n`;
+      messageText += `   • Qty: ${item.quantity}\n`;
+      if (item.attributes?.[0]) messageText += `   • Flavour: ${item.attributes[0]}\n`;
+      if (item.attributes?.[1]) messageText += `   • Size: ${item.attributes[1]}\n`;
       messageText += `   • Price: ₹${itemTotalPrice}\n`;
-      messageText += `   • Weight: ${itemWeight}g\n`;
+      if (itemWeight > 0) messageText += `   • Weight: ${itemWeight}g\n`;
     });
 
     messageText += `\n━━━━━━━━━━━━━━━━━━━━━━\n`;
-    messageText += `\n💰 *Order Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
-    messageText += `📊 *Total Items:* ${totalQuantity}\n`;
-    messageText += `⚖️ *Total Weight:* ${totalWeight}g`;
+    messageText += `\n💰 *Total:* ₹${Math.round(adjustedTotalPrice)}\n`;
+    messageText += `📊 *Items:* ${totalQuantity}\n`;
+    if (totalWeight > 0) messageText += `⚖️ *Total Weight:* ${totalWeight}g\n`;
 
-    const message = encodeURIComponent(messageText);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${message}`;
-
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(messageText)}`;
     window.location.href = whatsappUrl;
   } catch (error) {
     console.error("Checkout error:", error);

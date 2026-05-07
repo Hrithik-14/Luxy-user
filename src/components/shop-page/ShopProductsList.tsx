@@ -32,9 +32,7 @@ interface ApiProduct {
 // Get the lowest size price, falling back to variant price
 function getDisplayPrice(v?: ApiVariant): number {
   if (!v) return 0;
-  const sizePrices = (v.sizes || [])
-    .map(s => s.price || 0)
-    .filter(p => p > 0);
+  const sizePrices = (v.sizes || []).map(s => s.price || 0).filter(p => p > 0);
   if (sizePrices.length > 0) return Math.min(...sizePrices);
   return v.price || 0;
 }
@@ -42,7 +40,7 @@ function getDisplayPrice(v?: ApiVariant): number {
 // Module-level cache — persists across navigations within the same session
 let productCache: Product[] = [];
 let cacheTimestamp = 0;
-const CACHE_TTL = 0; // always fresh — prices depend on sizes
+const CACHE_TTL = 3 * 60 * 1000; // 3 minutes
 
 const ITEMS_PER_PAGE = 12;
 
