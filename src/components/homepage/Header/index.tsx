@@ -80,12 +80,18 @@ export default function HeroBanner() {
     },
     [animating, current]
   );
-  const isMobile =
-    typeof window !== "undefined" && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!api) {
-      setSlides(fallbackSlides);
+      setSlides([]);
       return;
     }
 
@@ -112,10 +118,11 @@ export default function HeroBanner() {
           }
         }
       } catch (err) {
-        console.error("Failed to fetch banners, using fallback:", err);
+        console.error("Failed to fetch banners:", err);
       }
-      bannerCache = fallbackSlides;
-      setSlides(fallbackSlides);
+      // No banners available — show nothing instead of random fallback
+      bannerCache = [];
+      setSlides([]);
     };
 
     fetchBanners();
@@ -405,12 +412,28 @@ export default function HeroBanner() {
         }
 
         @media (max-width: 640px) {
-          .arrow-btn { display: none; }
-          .banner-content { padding: 0 5vw; }
-          .banner-content.right { justify-content: flex-start; }
-          .slide-overlay.right {
-            background: linear-gradient(180deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.72) 55%,rgba(255,255,255,0.12) 100%);
+          .banner-root {
+            height: 56.25vw;
+            min-height: 220px;
+            max-height: 420px;
           }
+          .arrow-btn { display: none; }
+          .banner-content { padding: 0 5vw; align-items: flex-end; padding-bottom: 32px; }
+          .banner-content.right { justify-content: flex-start; }
+          .slide-img {
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+          }
+          .slide-img.active { transform: none; }
+          .slide-img.exiting { transform: none; }
+          .slide-overlay, .slide-overlay.center, .slide-overlay.right {
+            background: none;
+          }
+          .slide-headline { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+          .slide-sub { font-size: 0.8rem; margin-bottom: 16px; }
+          .slide-counter { display: none; }
+          .dots { bottom: 10px; }
         }
       `}</style>
 
