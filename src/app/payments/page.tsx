@@ -7,7 +7,7 @@ export default function PaymentsPage() {
        Pay Only Through Official Luxy Galleria QR.
 
       </p>
-      <p>Shipping charges will be shared during WhatsApp order confirmation.</p>
+      <p>Shipping charges will be shared during WhatsApp order confirmation  (only in <b>9947478098</b>). </p>
      
     </InfoPage>
   );
